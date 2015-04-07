@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<!--
+	Halcyonic by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<!-- Le data used:
+
+code1[] -> lines of le first code
+code2[] -> lines of le second code
+assembly1[], assembly2[], ccode1[], ccode2[]
+Also get the percentage of match for everything... Got to check how to get this!!!
+
+-->
+
+
+<html>
+	<head>
+		<title>{{title}}</title>
+		{% load staticfiles %}
+		<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/skel.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.js' %}"></script>
+		<script src="{% static 'js/skel-layers.min.js' %}"></script>
+		<script src="{% static 'js/init.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'css/skel.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/style-desktop.css' %}" />
+		<style type="text/css">
+			a.active { 
+			    background-color: yellow;
+			    text-decoration: underline;
+			}
+			mark{
+				background-color: red;
+			}
+		</style>
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+	</head>
+	<body class="subpage">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61329960-1', 'auto');
+  ga('send', 'pageview');
+
+</script>		<!-- Header -->
+			<div id="header-wrapper">
+				<header id="header" class="container">
+					<div class="row">
+						<div class="12u">
+
+							<!-- Logo -->
+								<h1><a href="../../" id="logo">The Golden Path</a></h1>
+							
+							<!-- Nav -->
+								<nav id="nav">
+									<a href="/">Homepage</a>
+									<a href="../comparecode">Compare</a>
+									<a href="../aboutus">About Us</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+			</div>
+			<div id="content-wrapper">
+				<div id="content">
+					<div class="container">
+						<div class="row">
+							<div class="alert alert-warning" role="alert">
+								The result would be <span class="label label-{{totaltitle}}">{{percent}}</span>!!!
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<br>
+				<div id="content">
+					<div class="container">
+						<div class="row">
+							<div class="2u"></div>
+							<div class="3u"><a href="#" id="codecompare" style="text-decoration: none;" class="active"> Code </a> </div>
+							<div class="3u"><a href="#" id="asscompare"style="text-decoration: none;"> Assembly </a> </div>
+							<div class="3u"><a href="#" id="ccompare"style="text-decoration: none;"> C </a> </div>
+						</div>
+						<hr style="height:1px;border:none;color:#DEADDA;background-color:#DEADDA;" />
+					</div>
+				</div>
+				<br>
+				<div class="container codeview">
+					<div class="row">
+						<div class="6u">
+								{{ code1 | join:"<br>" |safe }}
+
+						</div>
+						<div class="6u">
+								{{ code2 | join:"<br>" }}
+
+						</div>
+					</div>
+				</div>
+			{% autoescape off %}
+				<div class="container assview">
+						{% if assemblymatch1 %}
+						<div class="row">
+								<div class="3u"></div>
+								<div class="alert alert-warning" role="alert">
+									Assembly code: <span class="label label-{{assemblyLabel}}">{{assemblymatch1}}% &lt;==&gt; {{assemblymatch2}}%</span> match!
+								</div>
+						</div>
+						{% endif %}
+					<div class="row">
+
+						<div class="6u">
+								{{ assembly1 | join:"<br>" }}
+
+						</div>
+						<div class="6u">
+								{{ assembly2 | join:"<br>" }}
+
+						</div>
+					</div>
+				</div>
+				<div class="container cview">
+					<div class="row">
+							<div class="3u"></div>
+							<div class="alert alert-warning" role="alert">
+								C code: <span class="label label-{{codeLabel}}">{{codematch1}}% &lt;==&gt; {{codematch2}}%</span> match!
+							</div>
+					</div>
+					<div class="row">
+						<div class="6u">
+								{{ ccode1 | join:"<br>" }}
+
+						</div>
+						<div class="6u">
+								{{ ccode2 | join:"<br>" }}
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			{% endautoescape %}
+
+			<script type="text/javascript">
+				$(document).ready(function(){
+					function noneall(){
+						$('.codeview').css('display','none');
+						$('.assview').css('display','none');
+						$('.cview').css('display','none');
+						$('#codecompare').removeClass('active');
+						$('#asscompare').removeClass('active');
+						$('#ccompare').removeClass('active');
+					}
+					function showccompare(){
+						noneall();
+						$('#ccompare').addClass('active');
+						$('.cview').css('display','block');							
+					}
+					function showasscompare(){
+						noneall();
+						$('#asscompare').addClass('active');
+						$('.assview').css('display','block');
+					}
+					function showcode(){
+						noneall();
+						$('.codeview').css('display','block');
+						$('#codecompare').addClass('active');
+					}
+					function fall(){
+						showccompare();
+
+					}
+					$('#codecompare').click(function(){
+						showcode();
+					});
+					$('#asscompare').click(function(){
+						showasscompare();
+					});
+					$('#ccompare').click(function(){
+						showccompare();
+					});
+					showccompare();
+				});
+			</script>
+
+
+		<!-- Copyright -->
+			<div id="copyright">
+				&copy; All rights reserved.gcs06 and yoda
+			</div>
+
+	</body>
+</html>

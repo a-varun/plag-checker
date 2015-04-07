@@ -1,0 +1,1 @@
+inline void write(long long int a){char buf[20];long long int i=0;do{buf[i++]=a%10+48;a=a/10;}while(a!=0);i=i-1;while(i>=0)putchar_unlocked(buf[i--]);putchar_unlocked('\n');}

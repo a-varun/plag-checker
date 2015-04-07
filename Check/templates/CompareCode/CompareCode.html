@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<!--
+	Halcyonic by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Compare Code</title>
+		{% load staticfiles %}
+		<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/skel.min.js' %}"></script>
+		<script src="{% static 'js/filestyle.js' %}"></script>
+		<script src="{% static 'js/bootstrap.js' %}"></script>
+		<script src="{% static 'js/skel-layers.min.js' %}"></script>
+		<script src="{% static 'js/init.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'css/skel.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/style-desktop.css' %}" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+	</head>
+	<body class="subpage">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61329960-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+		{% autoescape on %}
+		<!-- Header -->
+			<div id="header-wrapper">
+				<header id="header" class="container">
+					<div class="row">
+						<div class="12u">
+
+							<!-- Logo -->
+								<h1><a href="../" id="logo">The Golden Path</a></h1>
+							
+							<!-- Nav -->
+								<nav id="nav">
+									<a href="../">Homepage</a>
+									<a href "../comparecode">Compare Code </a>
+									<a href="../aboutus">About Us</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+			</div>
+
+		<!-- Content -->
+			<div id="content-wrapper">
+				<div id="content">
+					<div class="container">
+						<div class="row">
+							<div class="1u"></div>
+							<div class="10u important(collapse)">
+								<!-- Main Content -->
+									<section>
+										<header>
+											<h2>Compare Codes</h2>
+											<h3>You can upload any two vaild C or C++ codes here</h3>
+										</header>
+											
+										<p>
+											<form method="POST" onsubmit="return validator()" action="../check/" enctype="multipart/form-data" >
+												{% csrf_token %}
+												<div class="row">
+													<div class="6u">
+														<section>
+															<p>
+																<input type="file" id="file1" name="file1" class="filestyle" data-buttonBefore="true">
+															</p>
+														</section>
+													</div>
+
+													<div class="6u">
+														<section>
+															<p>
+																<input type="file" id="file2" name="file2" class="filestyle" data-buttonBefore="true">
+															</p>
+														</section>
+													</div>
+												</div>
+												<div class="row">
+													<div class="3u"></div>
+													<div class="6u important(collapse)">
+														<center><input type="checkbox" name="storecode" id="storecodeid">Would you like us to store the code?</center>
+													</div>
+												</div>
+												<div class="row">
+													<div class="5u"></div>
+													<div class="6u important(collapse)">
+														<input type="submit" class="btn btn-warning" value="compare"/>
+													</div>
+												</div>
+												<div class="row" id="err" style="display:none;">
+													<div class="alert alert-danger" role="alert">Enter files to be compared, correctly!</div>
+												</div>
+												<div class="row" id="err2" style="display:none;">
+													<div class="alert alert-danger" role="alert">Enter valid C file!</div>
+												</div>
+											</form>
+										</p>
+									</section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endautoescape %}
+		<!-- Footer -->
+		<script type="text/javascript">
+			function validator(){
+				var file1 = document.getElementById('file1').value;
+				var file2 = document.getElementById('file2').value;
+				document.getElementById('err2').style.display="none";
+				document.getElementById('err').style.display="none";
+				if(file1=="" || file2==""){
+					document.getElementById('err').style.display="block";
+					return false;
+				}
+				if((file1.split('.').pop()!="c" || file2.split('.').pop()!="c")&&(file1.split('.').pop()!="cpp" || file2.split('.').pop()!="cpp")){
+					document.getElementById('err2').style.display="block";
+					return false;
+				}
+				return true;
+			}
+		</script>
+		<!-- Copyright -->
+			<div id="copyright">
+				&copy; All rights reserved.gcs06 and yoda
+			</div>
+
+	</body>
+</html>
