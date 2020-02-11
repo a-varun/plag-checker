@@ -1,4 +1,4 @@
-Django==1.7.6
+Django==1.11.28
 gunicorn==19.3.0
 pytz==2014.10
 urllib3==1.10.2
